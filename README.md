@@ -1,4 +1,4 @@
-# go-APNs #
+# Golang APNs package#
 ###Apple Push notification package###
 
 This package is made with the ideea to be able to send a lot of messages
