@@ -101,9 +101,10 @@ you can call multiple time, only if err != nil, will panic if you try to init af
     
 ###Logging:###
 - you can use 2 type's of loggers
-        apns.SetGoLogger(logger)// if you use go standard logger
-        apns.SetLogger(logger) //for this you need a logger with Debug/Info/Warning/Error methods as interface apns.Logger
-
+````	
+apns.SetGoLogger(logger)// if you use go standard logger
+apns.SetLogger(logger) //for this you need a logger with Debug/Info/Warning/Error methods as interface apns.Logger
+````
 ### Docs ###
 
 #####Note:#####
