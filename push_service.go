@@ -141,7 +141,7 @@ func (ps *pushService) monitorReply() {
 
 			ps.confirmedQueue <- &apnsReceiveMessage{status: status, id: id}
 			logdebug("Received confirmation for id: %d with status: %d", id, status)
-			if status >= 9 {
+			if status != 0 {
 				ps.lastError = fmt.Errorf("APNs server reply with status %d (%s), closing", status, statusToError(status))
 				ps.doSenderClose <- true
 				close(ps.confirmedQueue)
