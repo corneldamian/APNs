@@ -14,22 +14,22 @@ const (
 	MaxNotificationSizeBytes = 2048 //max notification data size (2K)
 )
 
-func NewPushNotification() *pushNotification {
-	return &pushNotification{payload: make(map[string]interface{}), priority: defaultConfig.NotificationPriority}
+func NewPushNotification() *PushNotification {
+	return &PushNotification{payload: make(map[string]interface{}), priority: defaultConfig.NotificationPriority}
 }
 
-type pushNotification struct {
+type PushNotification struct {
 	payload    map[string]interface{}
 	expiration uint32
 	priority   uint8
 }
 
-func (pn *pushNotification) ToJson() (data []byte, err error) {
+func (pn *PushNotification) ToJson() (data []byte, err error) {
 	data, err = json.Marshal(pn.payload)
 	return
 }
 
-func (pn *pushNotification) Config() (expiration uint32, priority uint8) {
+func (pn *PushNotification) Config() (expiration uint32, priority uint8) {
 	if n, ok := pn.payload["aps"]; ok {
 		nn := n.(*notification)
 		if nn.Alert == nil && nn.Sound == nil && nn.Badge == nil {
@@ -40,19 +40,19 @@ func (pn *pushNotification) Config() (expiration uint32, priority uint8) {
 	return pn.expiration, pn.priority
 }
 
-func (pn *pushNotification) SetExpire(expire time.Duration) {
+func (pn *PushNotification) SetExpire(expire time.Duration) {
 	pn.expiration = uint32(time.Now().Add(expire).Unix())
 }
 
-func (pn *pushNotification) SetPriority(priority uint8) {
+func (pn *PushNotification) SetPriority(priority uint8) {
 	pn.priority = priority
 }
 
-func (pn *pushNotification) SetNotification(n *notification) {
+func (pn *PushNotification) SetNotification(n *notification) {
 	pn.payload["aps"] = n
 }
 
-func (pn *pushNotification) SetCustom(key string, value interface{}) {
+func (pn *PushNotification) SetCustom(key string, value interface{}) {
 	pn.payload[key] = value
 }
 
