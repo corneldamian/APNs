@@ -57,7 +57,7 @@ func Init(cfg Config) error {
 	loginfo("APNS will init with %s enviroment and certificate from %s", enviroment, certificateType)
 
 	mainSendingMessage = make(chan *ApnsMessage, defaultConfig.MessageQueueSize)
-	mainConfirmationQueue = make(chan interface{}, defaultConfig.MessageQueueSize)
+	mainConfirmationQueue = make(chan *ApnsMessage, defaultConfig.MessageQueueSize)
 
 	initPushService()
 	inited = true
@@ -100,7 +100,7 @@ func resendMessage(message *ApnsMessage) {
 //you must read the confirm or after MessageQueueSize messages will block start blocking
 //the error will be the last error from the retry
 //confirm is safe to be called from multiple go rutines
-func Confirm() <-chan interface{} {
+func Confirm() <-chan *ApnsMessage {
 	if !inited {
 		panic("Confirmation called and apns lib isn't inited")
 	}
@@ -115,7 +115,7 @@ func confirmMessage(message *ApnsMessage) {
 
 var (
 	mainSendingMessage    chan *ApnsMessage
-	mainConfirmationQueue chan interface{}
+	mainConfirmationQueue chan *ApnsMessage
 
 	messagesInQueue int64  = 0
 	messageId       uint32 = 0
