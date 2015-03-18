@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/corneldamian/APNs.svg)](https://travis-ci.org/corneldamian/APNs)
+
 # Golang APNs package#
 ###Apple Push notification package###
 
