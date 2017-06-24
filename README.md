@@ -15,7 +15,7 @@ to Apple APNs very very fast atomaticaly scaling with your sending needs
 
 ###How this package works###
 - when you post a new message this is going posted to a queue
-- the message is going to be take by a managed connection and sent to Apple
+- the message is going to be taken by a managed connection and sent to Apple
 - after this the message will be moved to a sent queue where he is
    waiting his status as the status is explained after
 - each message will be added to the confirmed queue, where you will receive the status of the message
